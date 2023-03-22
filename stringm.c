@@ -1,35 +1,67 @@
 #include <stdio.h>
 #include <ctype.h>
+#include <string.h>
 #define MAX_LENGTH_STRING 30
 
 void display_menu(void);
 char ask_command(void);
-char read_string(char read_str[]);
-char print_string(char print_str[MAX_LENGTH_STRING]);
+char read_string(char string[]);
+char print_string(char string[]);
+int count_vowels(char string[]);
+int count_constants(char string[]);
+char to_lower(char string[]);
+char to_upper(char string[]);
+void read_file(char string[]);
+void write_file(char string[]);
+
 int main(void)
 {
     char current_string[MAX_LENGTH_STRING] = "Hello world!";
+    char character;
     display_menu();
     print_string(current_string);
-    
     while (character != 88)//Runs as long as "char string" isn't 'X(ascii 88)'
     {
-        char character = ask_command();
-        if (character == 69)
+        character = ask_command();
+        if (character == 69)// CASE E*******************
         {
-            printf("%s",current_string);
+            print_string(current_string);
         }
-        if (character == 70)
+        else if (character == 70)// CASE F*******************
         {
-            read_string()
+            read_string(current_string);
         }
-        
-        
-        
-        
+        else if(character == 65)// CASE A*******************
+        {
+            int vowel_count = count_vowels(current_string);
+            printf("%d",vowel_count);
+        }
+        else if(character == 66)// CASE B*******************
+        {
+            count_constants(current_string);
+        }
+        else if(character == 67)// CASE C*******************
+        {
+           current_string[MAX_LENGTH_STRING] = to_upper(current_string);
+        }
+        else if(character == 68)// CASE D*******************
+        {
+            current_string[MAX_LENGTH_STRING] =  to_lower(current_string);
+        }
+        else if(character == 71)// CASE G*******************
+        {
+            read_file(current_string);
+        }
+        else if(character == 72)// CASE H*******************
+        {
+            write_file(current_string);
+        }
+        else if(character == 77)// CASE M*******************
+        {
+            display_menu();
+        }
     }
     
-    printf("%c",string);
 }
 
 void display_menu(void)
@@ -69,5 +101,37 @@ char ask_command(void)
     }
     return ret_char;   
 }
-    
-    
+ 
+char read_string(char string[])
+{
+    printf("Give string: ");
+    fgets(string,MAX_LENGTH_STRING,stdin);
+    return string;
+}
+
+int count_vowels(char string[])
+{
+    int string_length = strlen(string);
+    int vowel_amount = 0;
+    for (int i = 0; i < string_length; i++)
+    {
+        switch (string[i])
+        {
+        case 65:
+        case 69:
+        case 73:
+        case 79:
+        case 85:
+        case 89:
+        case 97:
+        case 101:
+        case 105:
+        case 111:
+        case 117:
+        case 121:
+            vowel_amount += 1;
+            break;
+        }  
+    }
+    return vowel_amount;
+}

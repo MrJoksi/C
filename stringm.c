@@ -105,7 +105,7 @@ char ask_command(void)
 char read_string(char string[])
 {
     printf("Give string: ");
-    fgets(string,MAX_LENGTH_STRING,stdin);
+    fgets(return_string,MAX_LENGTH_STRING,stdin);
     return string;
 }
 

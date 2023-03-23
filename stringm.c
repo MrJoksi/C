@@ -1,18 +1,20 @@
 #include <stdio.h>
 #include <ctype.h>
 #include <string.h>
-#define MAX_LENGTH_STRING 30
+#define MAX_LENGTH_STRING 50
+#define FILENAME "stringfilu.txt"
 
 void display_menu(void);
 char ask_command(void);
-char read_string(char string[]);
-char print_string(char string[]);
+void read_string(char string[]);
+void print_string(char string[]);
 int count_vowels(char string[]);
-int count_constants(char string[]);
-char to_lower(char string[]);
-char to_upper(char string[]);
+int count_consonant(char string[]);
+void to_lower(char string[]);
+void to_upper(char string[]);
 void read_file(char string[]);
 void write_file(char string[]);
+
 
 int main(void)
 {
@@ -20,7 +22,7 @@ int main(void)
     char character;
     display_menu();
     print_string(current_string);
-    while (character != 88)//Runs as long as "char string" isn't 'X(ascii 88)'
+    while (character != 88)//Runs as long as "char string" isn't 'X(ascii 88)
     {
         character = ask_command();
         if (character == 69)// CASE E*******************
@@ -38,15 +40,17 @@ int main(void)
         }
         else if(character == 66)// CASE B*******************
         {
-            count_constants(current_string);
+            int count = count_consonant(current_string);
+            printf("%d",count);
+
         }
         else if(character == 67)// CASE C*******************
         {
-           current_string[MAX_LENGTH_STRING] = to_upper(current_string);
+           to_upper(current_string);
         }
         else if(character == 68)// CASE D*******************
         {
-            current_string[MAX_LENGTH_STRING] =  to_lower(current_string);
+            to_lower(current_string);
         }
         else if(character == 71)// CASE G*******************
         {
@@ -64,6 +68,9 @@ int main(void)
     
 }
 
+
+
+
 void display_menu(void)
 {
     printf("A) Count the number of vowels in string\n");
@@ -78,10 +85,15 @@ void display_menu(void)
     printf("X) Exit this program\n");
 }
 
-char print_string(char print_str[MAX_LENGTH_STRING])
+
+
+
+void print_string(char print_str[])
 {
     printf("%s",print_str);
 }
+
+
 
 char ask_command(void)
 {
@@ -93,7 +105,7 @@ char ask_command(void)
         printf("\n");
         fgets(str,6,stdin);
         ret_char = toupper(str[0]);
-        if (ret_char > 64 && ret_char < 91)//selvittää onko annettu arvo kirjain
+        if (ret_char > 64 && ret_char < 91)//selvittÃ¤Ã¤ onko annettu arvo kirjain
         {
             i = 1;
         }
@@ -102,12 +114,15 @@ char ask_command(void)
     return ret_char;   
 }
  
-char read_string(char string[])
+
+
+void read_string(char string[])
 {
     printf("Give string: ");
-    fgets(return_string,MAX_LENGTH_STRING,stdin);
-    return string;
+    fgets(string,MAX_LENGTH_STRING,stdin);
 }
+
+
 
 int count_vowels(char string[])
 {
@@ -134,4 +149,75 @@ int count_vowels(char string[])
         }  
     }
     return vowel_amount;
+}
+
+void to_upper(char up_string[])
+{
+    char temp[MAX_LENGTH_STRING];
+    for(int x = 0; x < MAX_LENGTH_STRING;x++)
+    {
+        temp[x] = toupper(up_string[x]);
+        up_string[x] = temp[x];
+    }
+}
+
+void to_lower(char low_string[])
+{
+   char temp[MAX_LENGTH_STRING];
+    for(int x = 0; x < MAX_LENGTH_STRING;x++)
+    {
+        temp[x] = tolower(low_string[x]);
+        low_string[x] = temp[x];
+    } 
+}
+
+int count_consonant(char string[])
+{
+    int string_length = strlen(string);
+    int consonant_amount = 0;
+    for (int i = 0; i < string_length; i++)
+    {
+        switch (toupper(string[i]))
+        {
+        case 'B':
+        case 'C':
+        case 'D':
+        case 'F':
+        case 'G':
+        case 'H':
+        case 'J':
+        case 'K':
+        case 'L':
+        case 'M':
+        case 'N':
+        case 'P':
+        case 'Q':
+        case 'R':
+        case 'S':
+        case 'T':
+        case 'V':
+        case 'W':
+        case 'X':
+        case 'Z':
+            consonant_amount += 1;
+            break;
+        }  
+    }
+    return consonant_amount;
+}
+
+void read_file(char string[])
+{
+    FILE *file_pointer;
+    file_pointer = fopen(FILENAME,"r");
+    if (file_pointer == 0)
+    {
+        printf("Error in code");
+    }
+    else
+    {
+        fgets(string,MAX_LENGTH_STRING,file_pointer);
+    }
+    
+
 }

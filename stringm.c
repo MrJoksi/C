@@ -21,9 +21,9 @@ int main(void)
     char current_string[MAX_LENGTH_STRING] = "Hello world!";
     char character;
     display_menu();
-    print_string(current_string);
-    while (character != 88)//Runs as long as "char string" isn't 'X(ascii 88)
+    while (character != 88)
     {
+        printf("\nGive command: ");
         character = ask_command();
         if (character == 69)// CASE E*******************
         {
@@ -72,7 +72,13 @@ int main(void)
 
 
 void display_menu(void)
-{
+{   printf(" __        ______        _______. _______    ____    ____  ______    __    __  .______         .___  ___.  __  .__   __.  _______      __  .__   __.      ______ \n");
+    printf("|  |      /  __  \\      /       ||   ____|   \\   \\  /   / /  __  \\  |  |  |  | |   _  \\        |   \\/   | |  | |  \\ |  | |       \\    |  | |  \\ |  |     /      |\n");
+    printf("|  |     |  |  |  |    |   (----`|  |__       \\   \\/   / |  |  |  | |  |  |  | |  |_)  |       |  \\  /  | |  | |   \\|  | |  .--.  |   |  | |   \\|  |    |  ,----'\n");
+    printf("|  |     |  |  |  |     \\   \\    |   __|       \\_    _/  |  |  |  | |  |  |  | |      /        |  |\\/|  | |  | |  . `  | |  |  |  |   |  | |  . `  |    |  |     \n");
+    printf("|  `----.|  `--'  | .----)   |   |  |____        |  |    |  `--'  | |  `--'  | |  |\\  \\----.   |  |  |  | |  | |  |\\   | |  '--'  |   |  | |  |\\   |    |  `----.\n");
+    printf("|_______| \\______/  |_______/    |_______|       |__|     \\______/   \\______/  | _| `._____|   |__|  |__| |__| |__| \\__| |_______/    |__| |__| \\__|     \\______|\n");
+    printf("\n\n");
     printf("A) Count the number of vowels in string\n");
     printf("B) Count the number of constants in the string\n");
     printf("C) Convert the string to uppercase\n");
@@ -102,10 +108,9 @@ char ask_command(void)
     char ret_char;
     while (i != 1)
     {
-        printf("\n");
         fgets(str,6,stdin);
         ret_char = toupper(str[0]);
-        if (ret_char > 64 && ret_char < 91)//selvittÃ¤Ã¤ onko annettu arvo kirjain
+        if (ret_char > 64 && ret_char < 91)
         {
             i = 1;
         }
@@ -218,6 +223,19 @@ void read_file(char string[])
     {
         fgets(string,MAX_LENGTH_STRING,file_pointer);
     }
-    
-
+    fclose(file_pointer);
+}
+void write_file(char string[])
+{
+    FILE *file_pointer;
+    file_pointer = fopen(FILENAME,"w");
+    if (file_pointer == 0)
+    {
+        printf("Error in code");
+    }
+    else
+    {
+        fprintf(file_pointer,"%s",string);
+    }
+    fclose(file_pointer);
 }
